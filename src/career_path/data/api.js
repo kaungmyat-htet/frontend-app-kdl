@@ -1,38 +1,45 @@
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient, getHttpClient, getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
-// ensureConfig(['KDL_BASE_URL'], 'kdl API service');
+const KDL_URL = process.env.KDL_BASE_URL;
 
 export const getCareerPaths = async () => {
   const client = getAuthenticatedHttpClient();
-  const response = await client.get('http://localhost:18000/api/edx-careerpaths/v1/careerpaths');
+  const response = await client.get(`${KDL_URL}careerpaths`);
   // console.log(response);
   return response.data;
 };
 
-const getCourseInfo = async (courseId) => {
-  const client = getHttpClient();
-  const response = client.get(`http://localhost:18000/api/courses/v1/courses/${courseId}/`);
-  return response.name;
-};
+// const getCourseInfo = async (courseId) => {
+//   const client = getHttpClient();
+//   const response = client.get(`${KDL_URL}courses/${courseId}/`);
+//   return response.name;
+// };
 
 export const getCareerPath = async (careerPathId) => {
-  const client = getAuthenticatedHttpClient();
+  try {
+    const client = getAuthenticatedHttpClient();
+    const response = await client.get(`${KDL_URL}pathcourses?path_id=${careerPathId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (e) {
+    console.log(e.errorMessage);
+    console.log('Please Login first');
+  }
+  return null;
   // console.log(client);
   // eslint-disable-next-line camelcase
-  const response = await client.get(`http://localhost:18000/api/edx-careerpaths/v1/pathcourses?path_id=${careerPathId}`);
-  console.log(response.data);
-  const { courses } = response.data;
-  for (const item of courses) {
-    const courseName = await getCourseInfo(item.course_id);
 
-  }
-  return response.data;
+  // const { courses } = response.data;
+  // for (const item of courses) {
+  //   const courseName = await getCourseInfo(item.course_id);
+  // }
+
 };
 
 export const getLevels = async () => {
   const client = getAuthenticatedHttpClient();
-  const response = await client.get('http://localhost:18000/api/edx-careerpaths/v1/levels');
+  const response = await client.get(`${KDL_URL}levels`);
   console.log(response.data);
   return response.data;
 };
@@ -46,27 +53,27 @@ export const deleteCareerPath = async (careerPathId) => {
 
 export const addNewCareerPath = async (careerPathData) => {
   const response = await getAuthenticatedHttpClient()
-    .post('http://localhost:18000/api/edx-careerpaths/v1/careerpaths', careerPathData);
+    .post(`${KDL_URL}careerpaths`, careerPathData);
   console.log(response);
   return response.data;
 };
 
 export const addNewPathCourse = async (pathCourseData) => {
   const response = await getAuthenticatedHttpClient()
-    .post('http://localhost:18000/api/edx-careerpaths/v1/pathcourses', pathCourseData);
+    .post(`${KDL_URL}pathcourses`, pathCourseData);
   console.log(response);
   return response.data;
 };
 
 export const deletePathCourse = async (pathCourseId) => {
   const response = await getAuthenticatedHttpClient()
-    .delete(`http://localhost:18000/api/edx-careerpaths/v1/pathcourses?id=${pathCourseId}`);
+    .delete(`${KDL_URL}pathcourses?id=${pathCourseId}`);
   console.log(response.data);
   return response.data;
 };
 
 export const getCourses = async (organizationName) => {
-  const response = await getHttpClient().get(`http://localhost:18000/api/courses/v1/courses/?org=${organizationName}`);
+  const response = await getHttpClient().get(`${getConfig().LMS_BASE_URL}/api/courses/v1/courses/?org=${organizationName}`);
   const courses = [];
   response.data.results.forEach((item) => {
     const course = {};
