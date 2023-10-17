@@ -1,7 +1,8 @@
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient, getHttpClient, getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
-const KDL_URL = process.env.KDL_BASE_URL;
+const LMS_URL = getConfig().LMS_BASE_URL;
+const KDL_URL = `${LMS_URL}/api/kdl-careerpaths/v1/`;
 
 export const getCareerPaths = async () => {
   const client = getAuthenticatedHttpClient();
@@ -12,7 +13,7 @@ export const getCareerPaths = async () => {
 
 // const getCourseInfo = async (courseId) => {
 //   const client = getHttpClient();
-//   const response = client.get(`${KDL_URL}courses/${courseId}/`);
+//   const response = client.get(`${LMS_URL}courses/${courseId}/`);
 //   return response.name;
 // };
 
@@ -46,7 +47,7 @@ export const getLevels = async () => {
 
 export const deleteCareerPath = async (careerPathId) => {
   const client = getAuthenticatedHttpClient();
-  const response = await client.delete(`http://localhost:18000/api/edx-careerpaths/v1/careerpaths?id=${careerPathId}`);
+  const response = await client.delete(`${KDL_URL}careerpaths?id=${careerPathId}`);
   console.log(response.data);
   return response.data;
 };

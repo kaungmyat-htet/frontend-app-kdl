@@ -1,7 +1,6 @@
 // Add new names for new features as you build them. This allow you
 // to separate out redux state into name areas
 export const STORE_NAMES = {
-  CATALOG: 'catalog',
   CAREERPATH: 'careerpath',
   PATHCOURSES: 'courses',
 };
@@ -17,11 +16,11 @@ export const STORE_NAMES = {
 // To learn more about react routing, check out https://reactrouter.com
 export const ROUTES = {
   HOME: '/',
-  Catalog: {
-    HOME: '/catalog/',
-  },
   CareerPath: {
     HOME: '/careerpath/',
     EDITPAGE: '/careerpath/:id',
+  },
+  Portfolio: {
+    HOME: '/portfolio/',
   },
 };
