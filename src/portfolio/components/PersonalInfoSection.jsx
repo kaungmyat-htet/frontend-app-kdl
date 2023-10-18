@@ -188,7 +188,6 @@ const PersonalInfoSection = () => {
               </div>
             )}
           </div>
-          {/* <Form.Control name="userSkills" value={profileInfo.userSkills} onChange={handleFormChange} /> */}
         </Form.Group>
         <div>
           {
@@ -207,7 +206,6 @@ const PersonalInfoSection = () => {
               </Button>
             )
           }
-
         </div>
       </Form>
     </div>

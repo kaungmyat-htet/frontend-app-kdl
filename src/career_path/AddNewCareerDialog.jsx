@@ -35,7 +35,7 @@ const AddNewCareerDialog = (props) => {
           <Button variant="primary" type="submit">
             Create
           </Button>
-          <Button className="ml-3" onClick={props.onClose}>Close</Button>
+          <Button variant="secondary" className="ml-3" onClick={props.onClose}>Close</Button>
         </Form.Row>
       </Form>
     </div>

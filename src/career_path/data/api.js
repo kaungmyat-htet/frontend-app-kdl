@@ -1,12 +1,10 @@
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient, getHttpClient, getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
-const LMS_URL = getConfig().LMS_BASE_URL;
-const KDL_URL = `${LMS_URL}/api/kdl-careerpaths/v1/`;
-
 export const getCareerPaths = async () => {
+  console.log(getConfig().LMS_URL);
   const client = getAuthenticatedHttpClient();
-  const response = await client.get(`${KDL_URL}careerpaths`);
+  const response = await client.get(`${getConfig().LMS_BASE_URL}/api/kdl-careerpaths/v1/careerpaths`);
   // console.log(response);
   return response.data;
 };
@@ -20,7 +18,7 @@ export const getCareerPaths = async () => {
 export const getCareerPath = async (careerPathId) => {
   try {
     const client = getAuthenticatedHttpClient();
-    const response = await client.get(`${KDL_URL}pathcourses?path_id=${careerPathId}`);
+    const response = await client.get(`${getConfig().LMS_BASE_URL}/api/kdl-careerpaths/v1/pathcourses?path_id=${careerPathId}`);
     console.log(response.data);
     return response.data;
   } catch (e) {
@@ -40,35 +38,35 @@ export const getCareerPath = async (careerPathId) => {
 
 export const getLevels = async () => {
   const client = getAuthenticatedHttpClient();
-  const response = await client.get(`${KDL_URL}levels`);
+  const response = await client.get(`${getConfig().LMS_BASE_URL}/api/kdl-careerpaths/v1/levels`);
   console.log(response.data);
   return response.data;
 };
 
 export const deleteCareerPath = async (careerPathId) => {
   const client = getAuthenticatedHttpClient();
-  const response = await client.delete(`${KDL_URL}careerpaths?id=${careerPathId}`);
+  const response = await client.delete(`${getConfig().LMS_BASE_URL}/api/kdl-careerpaths/v1/careerpaths?id=${careerPathId}`);
   console.log(response.data);
   return response.data;
 };
 
 export const addNewCareerPath = async (careerPathData) => {
   const response = await getAuthenticatedHttpClient()
-    .post(`${KDL_URL}careerpaths`, careerPathData);
+    .post(`${getConfig().LMS_BASE_URL}/api/kdl-careerpaths/v1/careerpaths`, careerPathData);
   console.log(response);
   return response.data;
 };
 
 export const addNewPathCourse = async (pathCourseData) => {
   const response = await getAuthenticatedHttpClient()
-    .post(`${KDL_URL}pathcourses`, pathCourseData);
+    .post(`${getConfig().LMS_BASE_URL}/api/kdl-careerpaths/v1/pathcourses`, pathCourseData);
   console.log(response);
   return response.data;
 };
 
 export const deletePathCourse = async (pathCourseId) => {
   const response = await getAuthenticatedHttpClient()
-    .delete(`${KDL_URL}pathcourses?id=${pathCourseId}`);
+    .delete(`${getConfig().LMS_BASE_URL}/api/kdl-careerpaths/v1/pathcourses?id=${pathCourseId}`);
   console.log(response.data);
   return response.data;
 };
