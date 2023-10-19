@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 
 import Header, { messages as headerMessages } from '@edx/frontend-component-header';
 import Footer, { messages as footerMessages } from '@edx/frontend-component-footer';
-import { Route, Switch } from 'react-router';
+import { Switch, Route } from 'react-router-dom';
 
 import './index.scss';
 import { ROUTES } from './common/constants';
@@ -17,6 +17,7 @@ import EditCareerPathPage from './career_path/EditCareerPathPage';
 import CareerPage from './career_path/CareerPathPageV2';
 import store from './common/store';
 import ProfilePage from './portfolio/views/ProfilePage';
+import MainPage from './common/MainPage';
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
@@ -25,7 +26,7 @@ subscribe(APP_READY, () => {
       {/* <ExamplePage /> */}
       <main>
         <Switch>
-          {/* <Route exact path={ROUTES.HOME} component={ExamplePage} /> */}
+          <Route exact path={ROUTES.HOME} component={MainPage} />
           {/* <Route exact path={ROUTES.Catalog.HOME} component={CatalogPage} /> */}
           <Route exact path={ROUTES.CareerPath.HOME} component={CareerPage} />
           <Route path={ROUTES.CareerPath.EDITPAGE} component={EditCareerPathPage} />
