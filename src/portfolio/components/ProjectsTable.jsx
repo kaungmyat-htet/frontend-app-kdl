@@ -56,12 +56,17 @@ const ProjectsTable = (props) => {
   };
 
   const handleConfirmDeleteProject = async () => {
-    const resp = await deleteProject(selectedProject.id);
-    console.log(resp);
-    setIsConfirmModalOpen(false);
-    setSelectedProject({});
-    setMessage(resp.detail);
-    setIsInformModalOpen(true);
+    try {
+      const resp = await deleteProject(selectedProject.id);
+      console.log(resp);
+      setMessage(resp.detail);
+    } catch (e) {
+      setMessage('Error deleting project.');
+    } finally {
+      setIsConfirmModalOpen(false);
+      setSelectedProject({});
+      setIsInformModalOpen(true);
+    }
   };
 
   const handleConfirmModalClose = () => {

@@ -23,9 +23,13 @@ const ProjectSection = () => {
   const [isProjectDeleted, setIsProjectDeleted] = useState(false);
 
   async function fetchProjects() {
-    const data = await getProjects();
-    setProjects(data.projects);
-    console.log(data);
+    try {
+      const data = await getProjects();
+      setProjects(data.projects);
+      console.log(data);
+    } catch (e) {
+      console.log('error fetching projects.');
+    }
   }
   const handleOpenAddProjectModal = () => {
     setModalTitle('Add New Project');
