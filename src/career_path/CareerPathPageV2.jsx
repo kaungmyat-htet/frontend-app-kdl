@@ -1,5 +1,5 @@
 import {
-  Container, Row, DataTable, Button, Col, ModalDialog
+  Container, Row, DataTable, Button, Col,
 } from '@edx/paragon';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';

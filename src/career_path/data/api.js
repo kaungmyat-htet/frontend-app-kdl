@@ -72,7 +72,10 @@ export const deletePathCourse = async (pathCourseId) => {
 };
 
 export const getCourses = async (organizationName) => {
-  const response = await getHttpClient().get(`${getConfig().LMS_BASE_URL}/api/courses/v1/courses/?org=${organizationName}`);
+  const paramObj = {
+    org: organizationName,
+  };
+  const response = await getHttpClient().get(`${getConfig().LMS_BASE_URL}/api/courses/v1/courses/?page_size=50`, { params: paramObj });
   const courses = [];
   response.data.results.forEach((item) => {
     const course = {};
